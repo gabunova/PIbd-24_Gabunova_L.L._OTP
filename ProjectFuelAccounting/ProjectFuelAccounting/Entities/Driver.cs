@@ -8,9 +8,9 @@ public class Driver
     public string FullName { get; private set; } = string.Empty;
     public string LicenseNumber { get; private set; } = string.Empty;
     public int Experience { get; private set; }
-    public VehicleCategory AllowedCategories { get; private set; }
+    public VehicleCategory AllowedCategory { get; private set; }
 
-    public static Driver CreateEntity(int id, string fullName, string licenseNumber, int experience, VehicleCategory allowedCategories)
+    public static Driver CreateEntity(int id, string fullName, string licenseNumber, int experience, VehicleCategory allowedCategory)
     {
         return new Driver
         {
@@ -18,7 +18,7 @@ public class Driver
             FullName = fullName ?? string.Empty,
             LicenseNumber = licenseNumber ?? string.Empty,
             Experience = experience,
-            AllowedCategories = allowedCategories
+            AllowedCategory = allowedCategory
         };
     }
 }
