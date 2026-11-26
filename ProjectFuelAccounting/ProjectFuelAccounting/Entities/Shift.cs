@@ -1,15 +1,28 @@
-﻿using ProjectFuelAccounting.Entities.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using ProjectFuelAccounting.Entities.Enums;
 
 namespace ProjectFuelAccounting.Entities;
 
 public class Shift
 {
-    public int Id { get; private set; }
-    public int DriversId { get; private set; }
-    public int CarsId { get; private set; }
-    public ShiftType ShiftType { get; private set; }
-    public DateTime ShiftDate { get; private set; }
-    public IEnumerable<ShiftRoute> ShiftRoutes { get; private set; } = [];
+    [Key]
+    public int Id { get; internal set; }
+
+    [ForeignKey(nameof(Driver))]
+    public int DriversId { get; internal set; }
+
+    [ForeignKey(nameof(Car))]
+    public int CarsId { get; internal set; }
+
+    public ShiftType ShiftType { get; internal set; }
+    public DateTime ShiftDate { get; internal set; }
+
+    public Driver? Driver { get; internal set; }
+    public Car? Car { get; internal set; }
+    public List<ShiftRoute> ShiftRoutes { get; internal set; } = [];
+
+    public Shift() { }
 
     public static Shift CreateOperation(int id, int driversId, int carsId, ShiftType shiftType, IEnumerable<ShiftRoute> shiftRoutes)
     {
@@ -19,8 +32,8 @@ public class Shift
             DriversId = driversId,
             CarsId = carsId,
             ShiftType = shiftType,
-            ShiftDate = DateTime.Now,
-            ShiftRoutes = shiftRoutes ?? []
+            ShiftDate = DateTime.UtcNow,
+            ShiftRoutes = shiftRoutes?.ToList() ?? []
         };
     }
 }

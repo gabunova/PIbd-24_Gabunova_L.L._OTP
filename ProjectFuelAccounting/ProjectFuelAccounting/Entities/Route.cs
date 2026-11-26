@@ -1,10 +1,20 @@
-﻿namespace ProjectFuelAccounting.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProjectFuelAccounting.Entities;
 
 public class Route
 {
-    public int Id { get; private set; }
-    public string Name { get; private set; } = string.Empty;
-    public double Distance { get; private set; }
+    [Key]
+    public int Id { get; internal set; }
+
+    [Required]
+    [Column("Name")]
+    public string Name { get; internal set; } = string.Empty;
+
+    public double Distance { get; internal set; }
+
+    public Route() { }
 
     public static Route CreateEntity(int id, string name, double distance)
     {

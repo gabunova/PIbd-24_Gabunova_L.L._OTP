@@ -1,14 +1,25 @@
-﻿using ProjectFuelAccounting.Entities.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using ProjectFuelAccounting.Entities.Enums;
 
 namespace ProjectFuelAccounting.Entities;
 
 public class Car
 {
-    public int Id { get; private set; }
-    public string Brand { get; private set; } = string.Empty;
-    public string CarNumber { get; private set; } = string.Empty;
-    public double FuelRate { get; private set; }
-    public VehicleCategory Category { get; private set; }
+    [Key]
+    public int Id { get; internal set; }
+
+    [Required]
+    public string Brand { get; internal set; } = string.Empty;
+
+    [Required]
+    [Column("CarNumber")]
+    public string CarNumber { get; internal set; } = string.Empty;
+
+    public double FuelRate { get; internal set; }
+    public VehicleCategory Category { get; internal set; }
+
+    public Car() { }
 
     public static Car CreateEntity(int id, string brand, string carNumber, double fuelRate, VehicleCategory category)
     {
@@ -21,4 +32,6 @@ public class Car
             Category = category
         };
     }
+
+    public override string ToString() => $"{Brand} ({CarNumber})";
 }
